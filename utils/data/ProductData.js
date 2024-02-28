@@ -36,7 +36,15 @@ const getProductById = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const searchProducts = (searchValue) => new Promise((resolve, reject) => {
+  getAllProducts().then((res) => {
+    const searchResults = res.filter((prod) => prod.title.toLowerCase().includes(searchValue));
+    resolve(searchResults);
+  }).catch(reject);
+});
+
 export {
   getAllProducts,
   getProductById,
+  searchProducts,
 };
