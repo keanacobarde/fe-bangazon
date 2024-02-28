@@ -26,10 +26,10 @@ export default function NavBar() {
             <Link passHref href="/products">
               <Nav.Link>Products</Nav.Link>
             </Link>
-            <Link passHref href="/">
+            <Link passHref href="/sellers">
               <Nav.Link>Sellers</Nav.Link>
             </Link>
-            <Link passHref href="/">
+            <Link passHref href="/orders">
               <Nav.Link>Orders</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
