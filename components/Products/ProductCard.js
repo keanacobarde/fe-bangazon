@@ -8,7 +8,7 @@ function ProductCard({ prodObj }) {
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={prodObj.imageUrl} />
       <Card.Body>
-        <Card.Title>{prodObj.title} - {prodObj.price}</Card.Title>
+        <Card.Title>{prodObj.title} - ${prodObj.price}</Card.Title>
         <Card.Text>
           {prodObj.description}
         </Card.Text>
