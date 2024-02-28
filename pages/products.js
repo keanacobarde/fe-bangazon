@@ -7,7 +7,6 @@ function ProductsPage() {
 
   const getAllTheProducts = () => {
     getAllProducts().then(setProducts);
-    console.warn(products);
   };
 
   useEffect(() => {
