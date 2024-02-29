@@ -43,8 +43,27 @@ const searchProducts = (searchValue) => new Promise((resolve, reject) => {
   }).catch(reject);
 });
 
+const deleteProductFromCart = (ordId, prodId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials}/orders/${ordId}/products/${prodId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
 export {
   getAllProducts,
   getProductById,
   searchProducts,
+  deleteProductFromCart,
 };

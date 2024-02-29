@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../utils/context/authContext';
 import { getUserCart } from '../utils/data/OrderData';
+import ProductCard from '../components/Products/ProductCard';
 
 function Cart() {
   const { user } = useAuth();
 
+  const [userCart, setUserCart] = useState([]);
+
   const getTheUserCart = () => {
-    getUserCart(user.uid).then(console.warn);
+    getUserCart(user.uid).then(setUserCart);
   };
 
   useEffect(() => {
@@ -14,7 +17,9 @@ function Cart() {
   }, []);
 
   return (
-    <div>cart</div>
+    <div className="product-page">
+      {userCart[0]?.products?.map((product) => <ProductCard key={product.id} prodObj={product} context="cart" />)}
+    </div>
   );
 }
 
