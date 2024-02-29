@@ -18,4 +18,25 @@ const getAllOrders = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export default getAllOrders;
+const getUserCart = (uid) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials}/cart/${uid}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
+export {
+  getAllOrders,
+  getUserCart,
+};
