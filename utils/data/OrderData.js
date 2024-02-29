@@ -18,6 +18,4 @@ const getAllOrders = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export default {
-  getAllOrders,
-};
+export default getAllOrders;
