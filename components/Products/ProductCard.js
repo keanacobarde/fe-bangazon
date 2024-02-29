@@ -2,8 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { deleteProductFromCart } from '../../utils/data/ProductData';
 
-function ProductCard({ prodObj }) {
+const defaultFunc = () => {};
+
+function ProductCard({ context, prodObj, onUpdate }) {
+  const deleteProductFromTheCart = () => {
+    if (window.confirm(`Delete ${prodObj.title}?`)) {
+      deleteProductFromCart().then(() => onUpdate());
+    }
+  };
+
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={prodObj.imageUrl} />
@@ -12,7 +21,7 @@ function ProductCard({ prodObj }) {
         <Card.Text>
           {prodObj.description}
         </Card.Text>
-        <Button variant="primary">Product Details</Button>
+        {context === 'cart' ? <Button variant="danger" onClick={deleteProductFromTheCart}>Delete</Button> : <Button variant="primary">Product Details</Button>}
       </Card.Body>
     </Card>
   );
@@ -21,10 +30,18 @@ function ProductCard({ prodObj }) {
 export default ProductCard;
 
 ProductCard.propTypes = {
+  context: PropTypes.string,
   prodObj: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
     imageUrl: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
+  onUpdate: PropTypes.func,
+};
+
+ProductCard.defaultProps = {
+  context: 'notCart',
+  onUpdate: defaultFunc,
 };
