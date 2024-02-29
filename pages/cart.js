@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '../utils/context/authContext';
-import { checkUser } from '../utils/auth';
+import { getUserCart } from '../utils/data/OrderData';
 
 function Cart() {
   const { user } = useAuth();
 
-  const getTheUser = () => {
-    checkUser(user.uid).then(console.warn);
+  const getTheUserCart = () => {
+    getUserCart(user.uid).then(console.warn);
   };
 
   useEffect(() => {
-    getTheUser();
+    getTheUserCart();
   }, []);
 
   return (
