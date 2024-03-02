@@ -18,6 +18,9 @@ function Cart() {
 
   return (
     <div className="product-page">
+      <div>
+        <h1>Cart</h1>
+      </div>
       {userCart[0]?.products?.map((product) => <ProductCard key={product.id} prodObj={product} context="cart" />)}
     </div>
   );
