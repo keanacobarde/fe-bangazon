@@ -2,13 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { deleteProductFromCart } from '../../utils/data/ProductData';
+import { useRouter } from 'next/router';
+import { addProductToCart, deleteProductFromCart } from '../../utils/data/ProductData';
 
 const defaultFunc = () => {};
 
 function ProductCard({
   context, prodObj, onUpdate, orderId,
 }) {
+  const router = useRouter();
+
   const deleteProductFromTheCart = () => {
     if (window.confirm(`Delete ${prodObj.title}?`)) {
       deleteProductFromCart(orderId, prodObj.id).then(() => onUpdate());
@@ -16,7 +19,7 @@ function ProductCard({
   };
 
   const addProductToTheCart = () => {
-    console.warn(orderId);
+    addProductToCart(orderId, prodObj.id).then(() => router.push('/cart'));
   };
 
   return (

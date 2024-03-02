@@ -44,15 +44,17 @@ const searchProducts = (searchValue) => new Promise((resolve, reject) => {
 });
 
 const addProductToCart = (ordId, prodId) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials}/orders/${ordId}/products/${prodId}`, {
+  fetch(`${clientCredentials}/orders/addProduct`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: {
-      orderId: ordId,
-      productId: prodId,
-    },
+    body: JSON.stringify(
+      {
+        orderId: ordId,
+        productId: prodId,
+      },
+    ),
   })
     .then((response) => response.json())
     .then((data) => {

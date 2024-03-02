@@ -62,7 +62,7 @@ function ProductsPage() {
         </Form>
       </div>
       <div className="product-page">
-        {products.map((product) => <ProductCard key={product.id} prodObj={product} orderId={userCart[0].id} />)}
+        {products.map((product) => <ProductCard key={product.id} prodObj={product} orderId={userCart[0]?.id} />)}
       </div>
     </>
   );
