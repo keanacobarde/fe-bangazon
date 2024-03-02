@@ -6,10 +6,12 @@ import { deleteProductFromCart } from '../../utils/data/ProductData';
 
 const defaultFunc = () => {};
 
-function ProductCard({ context, prodObj, onUpdate }) {
+function ProductCard({
+  context, prodObj, onUpdate, orderId,
+}) {
   const deleteProductFromTheCart = () => {
     if (window.confirm(`Delete ${prodObj.title}?`)) {
-      deleteProductFromCart().then(() => onUpdate());
+      deleteProductFromCart(orderId, prodObj.id).then(() => onUpdate());
     }
   };
 
@@ -39,9 +41,11 @@ ProductCard.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func,
+  orderId: PropTypes.number,
 };
 
 ProductCard.defaultProps = {
   context: 'notCart',
   onUpdate: defaultFunc,
+  orderId: 0,
 };
