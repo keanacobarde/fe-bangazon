@@ -2,15 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { deleteProductFromCart } from '../../utils/data/ProductData';
+import { useRouter } from 'next/router';
+import { addProductToCart, deleteProductFromCart } from '../../utils/data/ProductData';
 
 const defaultFunc = () => {};
 
-function ProductCard({ context, prodObj, onUpdate }) {
+function ProductCard({
+  context, prodObj, onUpdate, orderId,
+}) {
+  const router = useRouter();
+
   const deleteProductFromTheCart = () => {
     if (window.confirm(`Delete ${prodObj.title}?`)) {
-      deleteProductFromCart().then(() => onUpdate());
+      deleteProductFromCart(orderId, prodObj.id).then(() => onUpdate());
     }
+  };
+
+  const addProductToTheCart = () => {
+    addProductToCart(orderId, prodObj.id).then(() => router.push('/cart'));
   };
 
   return (
@@ -21,7 +30,7 @@ function ProductCard({ context, prodObj, onUpdate }) {
         <Card.Text>
           {prodObj.description}
         </Card.Text>
-        {context === 'cart' ? <Button variant="danger" onClick={deleteProductFromTheCart}>Delete</Button> : <Button variant="primary">Product Details</Button>}
+        {context === 'cart' ? <Button variant="danger" onClick={deleteProductFromTheCart}>Delete</Button> : <><Button variant="primary">Product Details</Button><Button variant="success" onClick={addProductToTheCart}>Add Product to Cart</Button></>}
       </Card.Body>
     </Card>
   );
@@ -39,9 +48,11 @@ ProductCard.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func,
+  orderId: PropTypes.number,
 };
 
 ProductCard.defaultProps = {
   context: 'notCart',
   onUpdate: defaultFunc,
+  orderId: 0,
 };

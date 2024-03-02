@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
 import { getUserCart } from '../utils/data/OrderData';
 import ProductCard from '../components/Products/ProductCard';
@@ -18,7 +20,11 @@ function Cart() {
 
   return (
     <div className="product-page">
-      {userCart[0]?.products?.map((product) => <ProductCard key={product.id} prodObj={product} context="cart" />)}
+      <div>
+        <h1>Cart</h1>
+        <Button variant="success"> ADD ITEM </Button>
+      </div>
+      {userCart[0]?.products?.map((product) => <ProductCard key={product.id} prodObj={product} context="cart" orderId={userCart[0].id} onUpdate={getTheUserCart} />)}
     </div>
   );
 }

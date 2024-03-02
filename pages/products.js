@@ -1,20 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import {
   Form, Row, Col, Button,
 } from 'react-bootstrap';
 import ProductCard from '../components/Products/ProductCard';
 import { getAllProducts, searchProducts } from '../utils/data/ProductData';
+import { useAuth } from '../utils/context/authContext';
+import { getUserCart } from '../utils/data/OrderData';
 
 function ProductsPage() {
+  const { user } = useAuth();
   const [products, setProducts] = useState([]);
+  const [userCart, setUserCart] = useState([]);
   const [searchInput, setSearchInput] = useState('');
 
   const getAllTheProducts = () => {
     getAllProducts().then(setProducts);
   };
 
+  const getTheUserCart = () => {
+    getUserCart(user.uid).then(setUserCart);
+  };
+
   useEffect(() => {
     getAllTheProducts();
+    getTheUserCart();
   }, []);
 
   const handleChange = (e) => {
@@ -53,7 +63,7 @@ function ProductsPage() {
         </Form>
       </div>
       <div className="product-page">
-        {products.map((product) => <ProductCard key={product.id} prodObj={product} />)}
+        {products.map((product) => <ProductCard key={product.id} prodObj={product} orderId={userCart[0]?.id} />)}
       </div>
     </>
   );

@@ -43,6 +43,30 @@ const searchProducts = (searchValue) => new Promise((resolve, reject) => {
   }).catch(reject);
 });
 
+const addProductToCart = (ordId, prodId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials}/orders/addProduct`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(
+      {
+        orderId: ordId,
+        productId: prodId,
+      },
+    ),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
 const deleteProductFromCart = (ordId, prodId) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials}/orders/${ordId}/products/${prodId}`, {
     method: 'DELETE',
@@ -66,4 +90,5 @@ export {
   getProductById,
   searchProducts,
   deleteProductFromCart,
+  addProductToCart,
 };
