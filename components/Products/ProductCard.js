@@ -15,6 +15,10 @@ function ProductCard({
     }
   };
 
+  const addProductToTheCart = () => {
+    console.warn(orderId);
+  };
+
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={prodObj.imageUrl} />
@@ -23,7 +27,7 @@ function ProductCard({
         <Card.Text>
           {prodObj.description}
         </Card.Text>
-        {context === 'cart' ? <Button variant="danger" onClick={deleteProductFromTheCart}>Delete</Button> : <Button variant="primary">Product Details</Button>}
+        {context === 'cart' ? <Button variant="danger" onClick={deleteProductFromTheCart}>Delete</Button> : <><Button variant="primary">Product Details</Button><Button variant="success" onClick={addProductToTheCart}>Add Product to Cart</Button></>}
       </Card.Body>
     </Card>
   );
